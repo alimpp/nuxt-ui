@@ -1,8 +1,6 @@
 import { BaseStore } from "../../../core/BaseStore";
 import { StoreManager } from "../../../core/StoreManager";
-import type {
-  TCustomer,
-} from "../../../types/customers/index";
+import type { TCustomer } from "../../../types/customers/index";
 import { CustomerModel } from "./models/Customers.model";
 
 interface TMeta {
@@ -12,7 +10,7 @@ interface TMeta {
 }
 
 interface ICustomersState {
-  customers: TCustomer[];
+  customers: CustomerModel[];
   meta: TMeta;
   loading: boolean;
   lastSearchField: string;
@@ -43,7 +41,7 @@ export class CustomersDS extends BaseStore<ICustomersState> {
   }
 
   get getCustomers(): CustomerModel[] {
-    return this._state.customers as unknown as CustomerModel[];
+    return this._state.customers;
   }
 
   get getMeta(): TMeta {
@@ -58,10 +56,8 @@ export class CustomersDS extends BaseStore<ICustomersState> {
     return this._state.lastSearchField;
   }
 
-  setCustomers(list: TCustomer[]): void {    
-    this._state.customers = list.map(
-      (c) => new CustomerModel(c),
-    ) as unknown as TCustomer[];
+  setCustomers(list: TCustomer[]): void {
+    this._state.customers = list.map((c) => new CustomerModel(c));
   }
 
   setMeta(meta: TMeta): void {

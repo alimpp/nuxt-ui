@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { customersController } from '../controllers/customers/index.controller'
+
 import { useUserDS } from "../dataStore/index";
 const userStore = useUserDS();
 
@@ -6,27 +8,11 @@ definePageMeta({
   middleware: "auth",
 });
 
-import { sub } from "date-fns";
-import type { DropdownMenuItem } from "@nuxt/ui";
-import type { Period, Range } from "~/types";
-
 const { isNotificationsSlideoverOpen } = useDashboard();
 
-const items = [
-  [
-    {
-      label: "تیکت ها",
-      icon: "i-lucide-send",
-      to: "/inbox",
-    },
-    {
-      label: "ثبت کاربر",
-      icon: "i-lucide-user-plus",
-      to: "/customers",
-    },
-  ],
-] satisfies DropdownMenuItem[][];
-
+onMounted( async () => {
+  await customersController.getCustomers()
+})
 </script>
 
 <template>
