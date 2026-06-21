@@ -1,18 +1,5 @@
 <script setup lang="ts">
-import { customersController } from '../controllers/customers/index.controller'
-
-import { useUserDS } from "../dataStore/index";
-const userStore = useUserDS();
-
-definePageMeta({
-  middleware: "auth",
-});
-
 const { isNotificationsSlideoverOpen } = useDashboard();
-
-onMounted( async () => {
-  await customersController.getCustomers()
-})
 </script>
 
 <template>
